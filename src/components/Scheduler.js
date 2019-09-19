@@ -82,7 +82,7 @@ class Scheduler extends Component {
                                 <li key={index} className='list-group-item' onClick={this.showModal}>{slot}</li>
                             ))}
                         </ul>
-                    </div>ø
+                    </div>
                     <div className='col-sm-4'></div>
                 </div>
             </div>
