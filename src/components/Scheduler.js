@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import UserInfoModal from "./UserInfoModal";
+import '../App.css'
 
 class Scheduler extends Component {
     constructor(props) {
@@ -134,11 +135,11 @@ class Scheduler extends Component {
                         <div className='col-sm-4'>
                             <ul className='list-group'>
                                 {this.state.timeSlots.map((slot, index) => (
-                                    slot.editable ? <li key={index} className='list-group-item list-group-item-danger l
-                                    ist-group-hover list-group-striped'
+                                    slot.editable ? <li key={index} className='list-group-item list-group-item-danger
+                                    list-group-hover list-group-striped'
                                                         onClick={this.showModal.bind(this, index)}>{slot.slot}</li> :
-                                        <li key={index} className='list-group-item list-group-item-success
-                                        list-group-hover list-group-striped'
+                                        <li key={index} className='list-group-item
+                                        list-group-hover list-group-striped list-group-item-success'
                                             onClick={this.showModal.bind(this, index)}>{slot.slot}</li>
                                 ))}
                             </ul>
