@@ -67,25 +67,29 @@ class Scheduler extends Component {
     handleCloseModal() {
         this.setState({
             show: false, timeSlots: this.state.timeSlots.map((slot, index) => {
-                if (index === this.state.id && slot.name != '' && slot.phoneNumber != '') {
+                if (index === this.state.id && slot.name !== '' && slot.phoneNumber !== '') {
                     slot.editable = true;
                 }
                 return slot;
-            })
+            }),
+            name: '',
+            phoneNumber: '',
         })
     }
 
     saveInfo() {
-        this.setState({
-            show: false, timeSlots: this.state.timeSlots.map((slot, index) => {
-                if (index === this.state.id) {
-                    slot.name = this.state.name;
-                    slot.phoneNumber = this.state.phoneNumber
-                    slot.editable = true;
-                }
-                return slot;
-            })
-        });
+        if(this.state.name !== '' || this.state.phoneNumber !== '') {
+            this.setState({
+                show: false, timeSlots: this.state.timeSlots.map((slot, index) => {
+                    if (index === this.state.id) {
+                        slot.name = this.state.name;
+                        slot.phoneNumber = this.state.phoneNumber
+                        slot.editable = true;
+                    }
+                    return slot;
+                })
+            });
+        }
     }
 
     handleNameChange(e) {
