@@ -104,7 +104,12 @@ class Scheduler extends Component {
     }
 
     handlePhoneNumberChange(e) {
-        this.setState({phoneNumber: e.target.value});
+        this.setState({phoneNumber: e.target.value, timeSlots: this.state.timeSlots.map((slot, index) => {
+                if (index === this.state.id) {
+                    slot.editable = false;
+                }
+                return slot;
+            })});
     }
 
     showModal(index) {
