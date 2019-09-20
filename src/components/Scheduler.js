@@ -68,7 +68,7 @@ class Scheduler extends Component {
     handleCloseModal() {
         this.setState({
             show: false, timeSlots: this.state.timeSlots.map((slot, index) => {
-                if (index === this.state.id && slot.name !== '' && slot.phoneNumber !== '') {
+                if (index === this.state.id && (slot.name !== '' && slot.phoneNumber !== '')) {
                     slot.editable = true;
                 }
                 return slot;
@@ -139,7 +139,7 @@ class Scheduler extends Component {
                                     list-group-hover list-group-striped'
                                                         onClick={this.showModal.bind(this, index)}>{slot.slot}</li> :
                                         <li key={index} className='list-group-item
-                                        list-group-hover list-group-striped list-group-item-success'
+                                        list-group-hover list-group-striped'
                                             onClick={this.showModal.bind(this, index)}>{slot.slot}</li>
                                 ))}
                             </ul>
