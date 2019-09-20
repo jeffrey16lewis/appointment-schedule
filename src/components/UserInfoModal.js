@@ -6,21 +6,28 @@ const UserInfoModal = (props) => {
 
     return (
         <div className='container'>
-            <Modal show={props.show} animation={false}>
+            <Modal show={props.show} onHide={props.action} animation={false}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Modal heading</Modal.Title>
+                    <Modal.Title>Appointment Information</Modal.Title>
                 </Modal.Header>
                 <Modal.Body><p>To schedule, enter your name and phone number.</p>
                     <div className='row'>
                         <div className='col-sm-6'>
                             <label htmlFor='person'>Name: </label>
-                            <input type='text' id='person' name='person' className='form-control'
-                                   onChange={props.person}/>
+                            {props.itemSlot.editable ?
+                                <input type='text' id='person' name='person' className='form-control'
+                                       onChange={props.person} value={props.itemSlot.name}/> :
+                                <input type='text' id='person' name='person' className='form-control'
+                                       onChange={props.person}/>
+                            }
                         </div>
                         <div className='col-sm-6'>
                             <label htmlFor='phone'>Phone number: </label>
-                            <input type='text' id='phone' name='phone' className='form-control'
-                                   onChange={props.phone}/>
+                            {props.itemSlot.editable ?
+                                <input type='text' id='phone' name='phone' className='form-control'
+                                       onChange={props.phone} value={props.itemSlot.phoneNumber}/> :
+                                <input type='text' id='phone' name='phone' className='form-control'
+                                       onChange={props.phone}/>}
                         </div>
                     </div>
                 </Modal.Body>

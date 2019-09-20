@@ -14,58 +14,102 @@ class Scheduler extends Component {
 
     state = {
         timeSlots: [
-            '9 - 10',
-            '10 - 11',
-            '11 - 12',
-            '12 - 1',
-            '1 - 2',
-            '2 - 3',
-            '3 - 4',
-            '4 - 5'
+            {
+                slot: '9:00 am - 10:00 am', name: '',
+                phoneNumber: '',
+                editable: false
+            },
+            {
+                slot: '10:00 am - 11:00 am', name: '',
+                phoneNumber: '',
+                editable: false
+            },
+            {
+                slot: '11:00 am - 12:00 pm', name: '',
+                phoneNumber: '',
+                editable: false
+            },
+            {
+                slot: '12:00 pm - 1:00 pm', name: '',
+                phoneNumber: '',
+                editable: false
+            },
+            {
+                slot: '1:00 pm - 2:00 pm', name: '',
+                phoneNumber: '',
+                editable: false
+            },
+            {
+                slot: '2:00 pm - 3:00 pm', name: '',
+                phoneNumber: '',
+                editable: false
+            },
+            {
+                slot: '3:00 pm - 4:00 pm', name: '',
+                phoneNumber: '',
+                editable: false
+            },
+            {
+                slot: '4:00 pm - 5:00 pm', name: '',
+                phoneNumber: '',
+                editable: false
+            }
         ],
-        entry: {
-            name: '',
-            phoneNumber: '',
-            editable: false
-        },
+        slot: '',
         show: false,
         name: '',
-        phoneNumber: ''
+        phoneNumber: '',
+        data: [],
+        id: 0
 
     }
 
     handleCloseModal() {
-        console.log(this.state.show)
-        this.setState({show: false})
+        this.setState({
+            show: false, timeSlots: this.state.timeSlots.map((slot, index) => {
+                if (index === this.state.id && slot.name != '' && slot.phoneNumber != '') {
+                    slot.editable = true;
+                }
+                return slot;
+            })
+        })
     }
 
     saveInfo() {
-        // this will use the array to store items
-        console.log('saving....');
         this.setState({
-            name: this.state.name,
-            phoneNumber: this.state.phoneNumber,
-            show: false
+            show: false, timeSlots: this.state.timeSlots.map((slot, index) => {
+                if (index === this.state.id) {
+                    slot.name = this.state.name;
+                    slot.phoneNumber = this.state.phoneNumber
+                    slot.editable = true;
+                }
+                return slot;
+            })
         });
     }
 
     handleNameChange(e) {
-        console.log('name');
-        this.setState({name: e.target.value});
+        this.setState({
+            name: e.target.value, timeSlots: this.state.timeSlots.map((slot, index) => {
+                if (index === this.state.id) {
+                    slot.editable = false;
+                }
+                return slot;
+            })
+        });
     }
 
     handlePhoneNumberChange(e) {
-        console.log('number');
         this.setState({phoneNumber: e.target.value});
     }
 
-    showModal() {
-        this.setState({show: true});
+    showModal(index) {
+        this.setState({show: true, id: index, slot: this.state.timeSlots[this.state.id]});
     }
 
     render() {
         return (
-            <div className='container well'>
+            <div className='container'>
                 <div className='jumbotron'>
                     <h2>Appointment Scheduler</h2>
                 </div>
@@ -73,17 +117,25 @@ class Scheduler extends Component {
                                show={this.state.show}
                                person={this.handleNameChange}
                                phone={this.handlePhoneNumberChange}
-                               save={this.saveInfo}/>
-                <div className='row'>
-                    <div className='col-sm-4'></div>
-                    <div className='col-sm-4'>
-                        <ul className='list-group'>
-                            {this.state.timeSlots.map((slot, index) => (
-                                <li key={index} className='list-group-item' onClick={this.showModal}>{slot}</li>
-                            ))}
-                        </ul>
+                               save={this.saveInfo}
+                               itemSlot={this.state.timeSlots[this.state.id]}/>
+                <div className='container'>
+                    <div className='row'>
+                        <div className='col-sm-4'></div>
+                        <div className='col-sm-4'>
+                            <ul className='list-group'>
+                                {this.state.timeSlots.map((slot, index) => (
+                                    slot.editable ? <li key={index} className='list-group-item list-group-item-danger l
+                                    ist-group-hover list-group-striped'
+                                                        onClick={this.showModal.bind(this, index)}>{slot.slot}</li> :
+                                        <li key={index} className='list-group-item list-group-item-success
+                                        list-group-hover list-group-striped'
+                                            onClick={this.showModal.bind(this, index)}>{slot.slot}</li>
+                                ))}
+                            </ul>
+                        </div>
+                        <div className='col-sm-4'></div>
                     </div>
-                    <div className='col-sm-4'></div>
                 </div>
             </div>
         )
